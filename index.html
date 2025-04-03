@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VG Globe Solutions | Advanced Robotics Technology</title>
+    <link rel="icon" href="robot-svgrepo-com.svg">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00b4d8;
+            --primary-dark: #0096c7;
+            --secondary: #023e8a;
+            --accent: #ff9e00;
+            --accent-dark: #ff8500;
+            --dark: #0a1128;
+            --darker: #050a1a;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.5rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        header.scrolled {
+            padding: 1rem 2rem;
+            background: rgba(10, 17, 40, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .logo span {
+            color: var(--accent);
+            margin-left: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.2rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            letter-spacing: 0.2px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger i {
+            font-size: 1.8rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('home-robots.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--light));
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(255, 158, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            z-index: -1;
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 158, 0, 0.4);
+            color: white;
+        }
+
+        .cta-button i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Products Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background-color: var(--accent);
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        /* Robotics Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+        }
+
+        .product-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: inherit;
+            transition: transform 0.8s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--darker);
+        }
+
+        .product-info p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .product-features i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Swiper Section */
+        .swiper-container {
+            width: 100%;
+            height: 600px;
+            margin: 4rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .swiper-slide {
+            position: relative;
+            background: #000;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+
+        .swiper-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white;
+            z-index: 2;
+        }
+
+        .swiper-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .swiper-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: white !important;
+            width: 60px !important;
+            height: 60px !important;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 1.5rem !important;
+        }
+
+        .swiper-pagination-bullet {
+            background: white !important;
+            opacity: 0.7 !important;
+            width: 12px !important;
+            height: 12px !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--accent) !important;
+            opacity: 1 !important;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--darker);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+
+        /* Contact Section */
+        .contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .contact-info.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .contact-details {
+            margin-bottom: 3rem;
+        }
+
+        .contact-details p {
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: flex-start;
+            color: var(--darker);
+        }
+
+        .contact-details i {
+            margin-right: 1rem;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .business-hours h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .business-hours p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            max-width: 250px;
+        }
+
+        .business-hours span {
+            color: var(--gray);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        .contact-form.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--darker);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.8rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0.8;
+        }
+
+        .footer-contact i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-top: 3px;
+        }
+
+        .footer-newsletter p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent-dark);
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .swiper-container {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.4rem;
+            }
+            
+            .swiper-content h3 {
+                font-size: 2rem;
+            }
+            
+            .swiper-content p {
+                font-size: 1.1rem;
+            }
+            
+            .testimonial-content {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--darker);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                padding: 2rem;
+                transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.2rem 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero {
+                min-height: 700px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .swiper-container {
+                height: 450px;
+                margin: 3rem 0;
+            }
+            
+            .swiper-content {
+                padding: 2rem;
+            }
+            
+            .contact {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .swiper-container {
+                height: 400px;
+            }
+            
+            .swiper-content h3 {
+                font-size: 1.6rem;
+            }
+            
+            .testimonial {
+                padding: 2rem 1.5rem;
+            }
+            
+            .testimonial-content {
+                font-size: 1.1rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div class="logo">VG<span>Globe</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#robotics">Robotics</a></li>
+                <li><a href="#lawn-mowers">Lawn Mowers</a></li>
+                <li><a href="#pet-tech">Pet Tech</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Revolutionizing Life with Advanced Robotics</h1>
+            <p>VG Globe Solutions brings you cutting-edge robotic technology for home, garden, and pet care. Experience the future of automation with our premium robotic solutions.</p>
+            <a href="#contact" class="cta-button">Explore Products <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="scroll-down" onclick="document.querySelector('#robotics').scrollIntoView({ behavior: 'smooth' })">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Robotics Products Section -->
+    <section class="section" id="robotics">
+        <div class="section-title">
+            <h2>Premium Robotics</h2>
+        </div>
+        <p class="section-subtitle">Discover our collection of advanced robotic systems designed to simplify and enhance your daily life.</p>
+        
+        <!-- Swiper Slider -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="homeass-rob.jpeg" alt="Home Assistant Robot">
+                    <div class="swiper-content">
+                        <h3>Home Assistant Robots</h3>
+                        <p>Our premium home assistant robots can manage household tasks, provide security monitoring, and even offer companionship with advanced AI interaction.</p>
+                        <button class="cta-button">View Collection <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="Smart-robot-arm-system.jpg" alt="Industrial Robot">
+                    <div class="swiper-content">
+                        <h3>Industrial Robotics</h3>
+                        <p>High-precision industrial robots for manufacturing, assembly, and specialized tasks with unparalleled accuracy and efficiency.</p>
+                        <button class="cta-button">View Collection <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Educational Robot">
+                    <div class="swiper-content">
+                        <h3>Educational Robotics</h3>
+                        <p>Interactive learning robots designed for STEM education, programming practice, and AI development.</p>
+                        <button class="cta-button">View Collection <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-badge">New</div>
+                <div class="product-image">
+                    <img src="Tidybot.jpeg" alt="Housekeeping Robot">
+                </div>
+                <div class="product-info">
+                    <h3>Housekeeping Assistant</h3>
+                    <p>Advanced robotic system that can clean, organize, and even do laundry with precision and efficiency.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> AI-powered navigation</li>
+                        <li><i class="fas fa-check"></i> Multi-surface cleaning</li>
+                        <li><i class="fas fa-check"></i> Voice command integration</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="security-patrol.png" alt="Security Robot">
+                </div>
+                <div class="product-info">
+                    <h3>Security Patrol Robot</h3>
+                    <p>24/7 automated security solution with facial recognition, intruder detection, and emergency alerts.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 360° surveillance</li>
+                        <li><i class="fas fa-check"></i> Night vision</li>
+                        <li><i class="fas fa-check"></i> Remote monitoring</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-badge">Popular</div>
+                <div class="product-image">
+                    <img src="miniStore.jpg" alt="Companion Robot">
+                </div>
+                <div class="product-info">
+                    <h3>AI Companion Robot</h3>
+                    <p>Interactive companion with emotional intelligence, learning capabilities, and personalized interaction.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Natural conversation</li>
+                        <li><i class="fas fa-check"></i> Emotion recognition</li>
+                        <li><i class="fas fa-check"></i> Personalized learning</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Robotic Lawn Mowers Section -->
+    <section class="section" id="lawn-mowers">
+        <div class="section-title">
+            <h2>Robotic Lawn Mowers</h2>
+        </div>
+        <p class="section-subtitle">Automated lawn care solutions that keep your yard perfectly maintained with minimal effort.</p>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="rob.jpg" alt="Residential Mower">
+                </div>
+                <div class="product-info">
+                    <h3>Residential Mower Pro</h3>
+                    <p>Fully autonomous lawn mower for residential properties with smart navigation and weather adaptation.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Up to 1 acre coverage</li>
+                        <li><i class="fas fa-check"></i> Rain sensor</li>
+                        <li><i class="fas fa-check"></i> Anti-theft system</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-badge">Advanced</div>
+                <div class="product-image">
+                    <img src="mower.png" alt="Commercial Mower">
+                </div>
+                <div class="product-info">
+                    <h3>Commercial Mower XT</h3>
+                    <p>Heavy-duty robotic mower for commercial landscapes and large properties with advanced terrain handling.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Up to 5 acre coverage</li>
+                        <li><i class="fas fa-check"></i> Slope handling up to 45°</li>
+                        <li><i class="fas fa-check"></i> Fleet management</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="robtwo.jpg" alt="Smart Mower">
+                </div>
+                <div class="product-info">
+                    <h3>Smart Mower Mini</h3>
+                    <p>Compact robotic mower for small gardens and yards with precision cutting and easy setup.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Up to 0.25 acre coverage</li>
+                        <li><i class="fas fa-check"></i> App control</li>
+                        <li><i class="fas fa-check"></i> Quiet operation</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pet Tech Section -->
+    <section class="section" id="pet-tech">
+        <div class="section-title">
+            <h2>Robotic Pet Supplies</h2>
+        </div>
+        <p class="section-subtitle">Innovative robotic solutions to care for your pets when you're away or simply want to enhance their daily routine.</p>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-badge">Best Seller</div>
+                <div class="product-image">
+                    <img src="dog-feeder.jpg" alt="Automatic Feeder">
+                </div>
+                <div class="product-info">
+                    <h3>Smart Pet Feeder</h3>
+                    <p>Programmable robotic feeder with portion control, scheduling, and remote feeding capabilities.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> HD camera</li>
+                        <li><i class="fas fa-check"></i> Voice interaction</li>
+                        <li><i class="fas fa-check"></i> Food level monitoring</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="game-cat.jpg" alt="Interactive Toy">
+                </div>
+                <div class="product-info">
+                    <h3>Interactive Play Robot</h3>
+                    <p>Entertainment companion for pets with automatic movement, laser pointer, and treat dispensing.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Motion sensors</li>
+                        <li><i class="fas fa-check"></i> Programmable play routines</li>
+                        <li><i class="fas fa-check"></i> Durable construction</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-badge">New</div>
+                <div class="product-image">
+                    <img src="gr.jpg" alt="Grooming Bot">
+                </div>
+                <div class="product-info">
+                    <h3>Automated Groomer</h3>
+                    <p>Gentle robotic grooming system that brushes, detangles, and even applies coat treatments.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Adjustable intensity</li>
+                        <li><i class="fas fa-check"></i> Self-cleaning</li>
+                        <li><i class="fas fa-check"></i> Safety sensors</li>
+                    </ul>
+                    <button class="cta-button">Learn More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+        </div>
+        <p class="section-subtitle">Comprehensive support for all your robotic technology needs.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-robot"></i></div>
+                <h3>Custom Robotics</h3>
+                <p>Bespoke robotic solutions tailored to your specific requirements and environment.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-tools"></i></div>
+                <h3>Installation</h3>
+                <p>Professional installation and setup of all robotic systems for optimal performance.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                <h3>Maintenance</h3>
+                <p>Regular maintenance and servicing to keep your robotics operating at peak efficiency.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Training</h3>
+                <p>Comprehensive training programs to help you master your robotic systems.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Support</h3>
+                <p>24/7 technical support for all VG Globe Solutions products.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Upgrades</h3>
+                <p>Software and hardware upgrades to keep your systems current with the latest technology.</p>
+            </div>
+        </div>
+    </section>
+
+ 
+   
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+        </div>
+        <p class="section-subtitle">Ready to bring robotic solutions into your life? Contact our team for expert advice.</p>
+        <div class="contact">
+            <div class="contact-info">
+                <h3>Our Information</h3>
+                <div class="contact-details">
+                    <p><i class="fas fa-map-marker-alt"></i> 104 S Glendale Ave, unit 201, Glendale CA 91205</p>
+                    <p><i class="fas fa-phone-alt"></i> (747) 295-9894</p>
+                    <p><i class="fas fa-envelope"></i> vgglobe@yahoo.com</p>
+                </div>
+                <div class="business-hours">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday <span>9:00 AM - 6:00 PM</span></p>
+                    <p>Saturday <span>10:00 AM - 4:00 PM</span></p>
+                    <p>Sunday <span>Closed</span></p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Product Interest</label>
+                        <select id="interest">
+                            <option value="">Select an option</option>
+                            <option value="robotics">Home Robotics</option>
+                            <option value="mowers">Lawn Mowers</option>
+                            <option value="pet-tech">Pet Technology</option>
+                            <option value="industrial">Industrial Robotics</option>
+                            <option value="other">Other Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col footer-about">
+                <h4>VG Globe Solutions</h4>
+                <p>Leading provider of advanced robotic technology for home, business, and specialized applications. Innovating for a smarter future.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col footer-links">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#robotics"><i class="fas fa-chevron-right"></i> Robotics</a></li>
+                    <li><a href="#lawn-mowers"><i class="fas fa-chevron-right"></i> Lawn Mowers</a></li>
+                    <li><a href="#pet-tech"><i class="fas fa-chevron-right"></i> Pet Tech</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-links">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Custom Robotics</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Installation</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Maintenance</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Training</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 104 S Glendale Ave, unit 201<br>Glendale CA 91205</p>
+                <p><i class="fas fa-phone-alt"></i> (747) 295-9894</p>
+                <p><i class="fas fa-envelope"></i> vgglobe@yahoo.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 VG Globe Solutions. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            setTimeout(function() {
+                preloader.classList.add('fade-out');
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Initialize Swipers
+        const mainSwiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        
+     
+        // Scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.product-card, .service-card, .contact-info, .contact-form');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate');
+                }
+            });
+        };
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will contact you shortly.');
+                this.reset();
+            });
+        }
+        
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            animateOnScroll();
+            
+            // Animate hero elements
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.animation = 'fadeInUp 1s ease forwards';
+            }
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    return;
+                }
+                
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
