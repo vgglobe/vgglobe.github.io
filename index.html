@@ -1374,30 +1374,7 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // https://dashboard.emailjs.com/admin/account
-            emailjs.init({
-              publicKey: "BrE4nA04BI63GYTyv",
-            });
-        })();
-    </script>
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // these IDs from the previous steps
-                emailjs.sendForm('service_7q138lk', 'template_aw6uu85', this)
-                    .then(() => {
-                        alert('Thank you for your message! We will contact you soon.');
-                        document.getElementById('contact-form').reset();
-                    }, (error) => {
-                        alert('ERROR!');
-                    });
-            });
-        }
-    </script>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1445,6 +1422,31 @@
     <a href="#home" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
     <!-- Scripts -->
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init({
+              publicKey: "BrE4nA04BI63GYTyv",
+            });
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // these IDs from the previous steps
+                emailjs.sendForm('service_7q138lk', 'template_aw6uu85', this)
+                    .then(() => {
+                        alert('Thank you for your message! We will contact you soon.');
+                        document.getElementById('contact-form').reset();
+                    }, (error) => {
+                        alert('ERROR!');
+                    });
+            });
+        }
+    </script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         // Preloader
