@@ -1056,6 +1056,17 @@
     .accordion-item.active .accordion-body {
       display: block;
     } 
+
+
+         .bg-video {
+ 
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;     /* crop to fill without distortion */
+      object-position: center;
+      z-index: -1;           /* sit behind page content */
+      background: #000;      /* fallback background */
+    }
     </style>
 </head>
 <body>
@@ -1210,6 +1221,23 @@ Robot Service.</p>
                 </div>
             </div>
         </div>
+    </section>
+
+       <section class="section" id="robotics">
+<video
+    class="bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+
+  >
+    <source src="4109317-uhd_4096_2160_25fps.webm" type="video/webm" />
+    <source src="4109317-uhd_4096_2160_25fps.mp4"  type="video/mp4" />
+    <!-- Fallback text for very old browsers -->
+    Your browser does not support the HTML5 video tag.
+  </video>
     </section>
 
     <!-- Robotic Lawn Mowers Section -->
@@ -1727,6 +1755,7 @@ Robot Service</p>
     </script>
 </body>
 </html>
+
 
 
 
